@@ -25,13 +25,16 @@ while True:
         # Convert face to RGB
         face_rgb = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
         
-        # Get face embedding
-        face_embedding = DeepFace.represent(face_rgb, model_name="Facenet")
-        
-        # Save extracted face embedding
-        np.save("user_face.npy", face_embedding)
-        print("Face data saved successfully!")
-        break  # Stop after first face detection
+        try:
+            # Get face embedding
+            face_embedding = DeepFace.represent(face_rgb, model_name="Facenet")
+            
+            # Save extracted face embedding
+            np.save("user_face.npy", face_embedding)
+            print("Face data saved successfully!")
+            break  # Stop after first face detection
+        except Exception as e:
+            print(f"Error extracting face embedding: {e}")
     
     cv2.imshow("Face Extraction", frame)
     
